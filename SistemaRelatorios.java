@@ -28,3 +28,27 @@ class RelatorioGrafico implements IRelatorio {
         visitor.visitRelatorioGrafico(this);
     }
 }
+
+class ExportadorHTML implements IVisitorExportacao {
+    public void visitRelatorioTexto(RelatorioTexto relatorio) {
+        System.out.println("</> Exportando HTML do texto: <p>" + relatorio.conteudo + "</p>");
+    }
+    public void visitRelatorioImagem(RelatorioImagem relatorio) {
+        System.out.println("</> Exportando HTML da imagem: <img src='" + relatorio.nomeImagem + "' />");
+    }
+    public void visitRelatorioGrafico(RelatorioGrafico relatorio) {
+        System.out.println("</> Exportando HTML do gráfico: <div>" + relatorio.dadosGrafico + "</div>");
+    }
+}
+
+class ExportadorPlanilha implements IVisitorExportacao {
+    public void visitRelatorioTexto(RelatorioTexto relatorio) {
+        System.out.println("Exportando Planilha: Celula A1 -> " + relatorio.conteudo);
+    }
+    public void visitRelatorioImagem(RelatorioImagem relatorio) {
+        System.out.println("Exportando Planilha: Imagem " + relatorio.nomeImagem);
+    }
+    public void visitRelatorioGrafico(RelatorioGrafico relatorio) {
+        System.out.println("Exportando Planilha: Tabela gerada com " + relatorio.dadosGrafico);
+    }
+}
