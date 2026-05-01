@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 interface IVisitorExportacao {
     void visitRelatorioTexto(RelatorioTexto relatorio);
     void visitRelatorioImagem(RelatorioImagem relatorio);
@@ -62,5 +65,33 @@ class ExportadorPDF implements IVisitorExportacao {
     }
     public void visitRelatorioGrafico(RelatorioGrafico relatorio) {
         System.out.println("Desenhando gráfico vetorial: " + relatorio.dadosGrafico);
+    }
+}
+
+public class SistemaRelatorios {
+    public static void main(String[] args) {
+        List<IRelatorio> meusRelatorios = new ArrayList<>();
+        meusRelatorios.add(new RelatorioTexto());
+        meusRelatorios.add(new RelatorioImagem());
+        meusRelatorios.add(new RelatorioGrafico());
+
+        ExportadorHTML exportadorHtml = new ExportadorHTML();
+        ExportadorPlanilha exportadorPlanilha = new ExportadorPlanilha();
+        ExportadorPDF exportadorPdf = new ExportadorPDF();
+
+        System.out.println("Exportando HTML");
+        for (IRelatorio relatorio : meusRelatorios) {
+            relatorio.accept(exportadorHtml);
+        }
+
+        System.out.println("\nExportanto planilha");
+        for (IRelatorio relatorio : meusRelatorios) {
+            relatorio.accept(exportadorPlanilha);
+        }
+
+        System.out.println("\neExportando pdf");
+        for (IRelatorio relatorio : meusRelatorios) {
+            relatorio.accept(exportadorPdf);
+        }
     }
 }
