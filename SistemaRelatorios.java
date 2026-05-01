@@ -52,3 +52,15 @@ class ExportadorPlanilha implements IVisitorExportacao {
         System.out.println("Exportando Planilha: Tabela gerada com " + relatorio.dadosGrafico);
     }
 }
+
+class ExportadorPDF implements IVisitorExportacao {
+    public void visitRelatorioTexto(RelatorioTexto relatorio) {
+        System.out.println("Gerando PDF com: " + relatorio.conteudo);
+    }
+    public void visitRelatorioImagem(RelatorioImagem relatorio) {
+        System.out.println("Renderizando " + relatorio.nomeImagem + " no PDF");
+    }
+    public void visitRelatorioGrafico(RelatorioGrafico relatorio) {
+        System.out.println("Desenhando gráfico vetorial: " + relatorio.dadosGrafico);
+    }
+}
